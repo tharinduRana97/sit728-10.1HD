@@ -100,7 +100,6 @@
           const adminAddress = $("#adminAddress").val();
           const adminPassword = $("#adminPassword").val();
 
-          // Implement a simple authentication mechanism here (this should be done on the server for a real app)
           if (await App.authenticateAdmin(adminAddress, adminPassword)) {
             window.location.href = "dashboard.html";
           } else {

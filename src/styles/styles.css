@@ -1,5 +1,5 @@
 .nav-wrapper {
-  background-color: #2196f3; /* Dark Blue Color */
+  background-color: #2196f3; 
 }
 
 Card header style .card-header {
@@ -38,7 +38,7 @@ Card header style .card-header {
 .card-content {
   display: none;
   padding: 20px;
-  background-color: #ffffff; /* Ensure white background */
+  background-color: #ffffff; 
   border: 1px solid #e0e0e0;
   border-top: none;
   border-radius: 0 0 5px 5px;
@@ -75,8 +75,8 @@ Card header style .card-header {
 .input-field input[type="date"]:focus,
 .input-field input[type="number"]:focus,
 .input-field select:focus {
-  border: 1px solid #2196f3; /* Blue border on focus */
-  box-shadow: none; /* Remove box shadow */
+  border: 1px solid #2196f3;
+  box-shadow: none;
 }
 
 .button-row {
@@ -218,15 +218,15 @@ Card header style .card-header {
 
 /* Additional styling to ensure cross-browser compatibility */
 .custproductTemplate .inventory-status-select {
-  width: 150px; /* Set a specific width */
-  margin-left: 0px !important; /* Space between the label and select */
-  display: inline-block; /* Keep it inline with the label */
-  border: none; /* Remove the default border */
-  font-size: 1rem; /* Set the font size */
-  background: none; /* Remove background to blend with design */
-  box-shadow: none; /* Remove box shadow */
-  outline: none; /* Remove outline on focus */
-  cursor: pointer; /* Change cursor to pointer */
+  width: 150px; 
+  margin-left: 0px !important;
+  display: inline-block; 
+  border: none; 
+  font-size: 1rem; 
+  background: none;
+  box-shadow: none;
+  outline: none; 
+  cursor: pointer; 
 }
 
 /* Remove borders around input fields */
@@ -236,13 +236,13 @@ Card header style .card-header {
 .input-field select {
   font-size: 1rem;
   padding: 12px;
-  border: none; /* Remove border */
-  border-bottom: 1px solid #b0bec5; /* Optional: add a subtle bottom border */
-  border-radius: 0; /* Remove rounded corners */
+  border: none; 
+  border-bottom: 1px solid #b0bec5; 
+  border-radius: 0;
   width: 100%;
   box-sizing: border-box;
-  margin-bottom: 15px; /* Space below the input */
-  background-color: transparent; /* Make the background transparent */
+  margin-bottom: 15px; 
+  background-color: transparent; 
 }
 
 /* Focus state without border */
@@ -250,8 +250,8 @@ Card header style .card-header {
 .input-field input[type="date"]:focus,
 .input-field input[type="number"]:focus,
 .input-field select:focus {
-  outline: none; /* Remove default focus outline */
-  border-bottom: 2px solid #2196f3; /* Add a bottom border on focus */
+  outline: none; 
+  border-bottom: 2px solid #2196f3; 
 }
 
 /* Style label */
@@ -259,15 +259,15 @@ Card header style .card-header {
   font-size: 1rem;
   top: -15px;
   left: 0;
-  color: #616161; /* Subtle label color */
+  color: #616161; 
 }
 
 /* Remove the default box-shadow and focus outline */
 .input-field input[type="text"]::placeholder,
 .input-field input[type="date"]::placeholder,
 .input-field input[type="number"]::placeholder {
-  color: #b0bec5; /* Placeholder color */
-  opacity: 1; /* Full opacity for placeholder text */
+  color: #b0bec5;
+  opacity: 1; 
 }
 
 /* Additional styling to ensure consistency */
@@ -284,17 +284,17 @@ Card header style .card-header {
   height: 23px !important;
   appearance: none;
   margin-left: 360px;
-  -webkit-appearance: none; /* Safari */
-  -moz-appearance: none; /* Firefox */
-  border: 1px solid #ffffff; /* Temporary white border for visibility */ /* Padding inside the chip */
-  border-radius: 25px; /* Rounded corners */
-  font-size: 0.8em; /* Font size */
-  font-weight: bold; /* Bold text */
-  color: #ffffff; /* White text color */
-  background-color: #2196f3; /* Default blue background */
-  cursor: pointer; /* Pointer cursor */
-  text-align: center; /* Center align text */
-  transition: background-color 0.3s ease, border 0.3s ease; /* Smooth transition */
+  -webkit-appearance: none;
+  -moz-appearance: none; 
+  border: 1px solid #ffffff; 
+  border-radius: 25px; 
+  font-size: 0.8em; 
+  font-weight: bold;
+  color: #ffffff; 
+  background-color: #2196f3; 
+  cursor: pointer; 
+  text-align: center; 
+  transition: background-color 0.3s ease, border 0.3s ease; 
 }
 
 /* Hide default dropdown arrow in IE and Edge */
@@ -304,36 +304,36 @@ Card header style .card-header {
 
 /* Different Chip Colors Based on Status */
 .status-chip-select[value="Produced"] {
-  background-color: #4caf50; /* Green for produced */
+  background-color: #4caf50;
 }
 
 .status-chip-select[value="Supplier Returned"] {
-  background-color: #f44336; /* Red for supplier returned */
+  background-color: #f44336;
 }
 
 .status-chip-select[value="Processed"] {
-  background-color: #ff9800; /* Orange for processed */
+  background-color: #ff9800; 
 }
 
 /* Hover State for the Selectable Chip */
 .status-chip-select:hover {
-  background-color: #1976d2; /* Darker blue on hover */
+  background-color: #1976d2; 
 }
 
 /* Focus State for the Selectable Chip */
 .status-chip-select:focus {
-  outline: none; /* Remove focus outline */
-  background-color: #1565c0; /* Darkest blue on focus */
+  outline: none; 
+  background-color: #1565c0; 
 }
 
 /* Placeholder-like styling for the first option (if needed) */
 .status-chip-select option:first-child {
-  color: #9e9e9e; /* Gray color for placeholder */
+  color: #9e9e9e;
 }
 
 /* Optional: Disabled styling for the chip */
 .status-chip-select:disabled {
-  background-color: #bdbdbd; /* Gray background when disabled */
-  cursor: not-allowed; /* Disabled cursor */
-  color: #ffffff; /* White text */
+  background-color: #bdbdbd; 
+  cursor: not-allowed;
+  color: #ffffff; 
 }
