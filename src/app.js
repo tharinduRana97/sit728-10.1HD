@@ -76,13 +76,11 @@ App = {
   },
   authenticateAdmin: async (adminAddress, password) => {
     try {
-      // Replace with a real authentication mechanism.
-      // For demo, just check if the admin exists in the smart contract.
       const isAdmin = await App.foodSupplyChain.authenticateAdmin(
         adminAddress,
         password
       );
-      return isAdmin; // Simplified check
+      return isAdmin;
     } catch (error) {
       console.error("Authentication error:", error);
       return false;
@@ -91,10 +89,10 @@ App = {
 
   registerAdmin: async (adminAddress, password) => {
     try {
-      // Register the admin on the blockchain (you may want to save the password off-chain)
+      // Register the admin on the blockchain 
       await App.foodSupplyChain.registerAdmin(adminAddress, password, {
         from: App.account,
-        gas: 500000, // Adjust gas limit if needed
+        gas: 500000,
       });
       console.log("Admin registered successfully!");
     } catch (error) {
@@ -112,7 +110,7 @@ App = {
       const product = await App.foodSupplyChain.products(i);
       const productId = product[0].toNumber();
       const productName = product[1];
-      const productStatus = product[3]; // This may need to be removed based on the new contract
+      const productStatus = product[3]; 
 
       const $newProductTemplate = $productTemplate.clone();
       $newProductTemplate
@@ -126,7 +124,7 @@ App = {
 
       $newProductTemplate.find(".product-name").html(productName);
       $newProductTemplate.find(".product-id").html(productId);
-      $newProductTemplate.find(".product-status").html(productStatus); // Remove if no longer needed
+      $newProductTemplate.find(".product-status").html(productStatus); 
 
       $("#productListItems").append($newProductTemplate);
       $newProductTemplate.show();
@@ -186,305 +184,6 @@ App = {
       $newInventoryTemplate.show();
     }
   },
-
-  // renderInventory: async () => {
-  //   const productCount = await App.foodSupplyChain.productCount({
-  //     from: App.account,
-  //   });
-  //   const $inventoryTemplate = $(".inventoryTemplate");
-
-  //   for (var i = 0; i < productCount; i++) {
-  //     const product = await App.foodSupplyChain.products(i);
-  //     const productId = product[0].toNumber();
-  //     const productName = product[1];
-  //     const [quantity, status] = await App.foodSupplyChain.getInventoryDetails(
-  //       App.account,
-  //       productId,
-  //       { from: App.account }
-  //     );
-
-  //     const $newInventoryTemplate = $inventoryTemplate.clone();
-
-  //     $newInventoryTemplate
-  //       .find(".avatar-initial")
-  //       .text(productName.charAt(0).toUpperCase())
-  //       .css({
-  //         display: "flex",
-  //         alignItems: "center",
-  //         justifyContent: "center",
-  //       });
-
-  //     $newInventoryTemplate.find(".product-name").html(productName);
-  //     $newInventoryTemplate
-  //       .find(".inventory-quantity")
-  //       .html(quantity.toNumber());
-  //     const $statusSelect = $("<select>")
-  //       .addClass("status-chip-select")
-  //       .css({
-  //         width: "auto",
-  //         borderRadius: "25px",
-  //         fontSize: "0.8em",
-  //         fontWeight: "bold",
-  //         color: "#ffffff",
-  //         backgroundColor: App.getStatusColor(status),
-  //         border: "none",
-  //         cursor: "pointer",
-  //         textAlign: "center",
-  //         appearance: "none",
-  //         zIndex: 1,
-  //       });
-
-  //     // Define available statuses and create options for each
-  //     const statusOptions = ["Produced", "Supplier Returned", "Processed"];
-  //     statusOptions.forEach((statusOption) => {
-  //       const $option = $("<option>")
-  //         .attr("value", statusOption)
-  //         .text(statusOption);
-
-  //       if (statusOption === status) {
-  //         $option.attr("selected", "selected"); // Set the default selected option
-  //       }
-
-  //       $statusSelect.append($option);
-  //     });
-
-  //     // Attach the status select element to the template
-  //     $newInventoryTemplate
-  //       .find(".prod-inventory-status-container")
-  //       .append($statusSelect);
-
-  //     // Function to adjust select width based on selected option
-  //     function adjustSelectWidth() {
-  //       const selectedText = $statusSelect.find("option:selected").text();
-  //       const font = `${$statusSelect.css("font-size")} ${$statusSelect.css(
-  //         "font-family"
-  //       )}`;
-  //       const width = getTextWidth(selectedText, font) + 20; // Add some padding for the dropdown arrow
-  //       $statusSelect.css("width", `${width}px`);
-  //     }
-
-  //     function getTextWidth(text, font) {
-  //       const canvas = document.createElement("canvas");
-  //       const context = canvas.getContext("2d");
-  //       context.font = font;
-  //       const width = context.measureText(text).width;
-  //       return width;
-  //     }
-
-  //     // Adjust the width initially
-  //     setTimeout(adjustSelectWidth, 0);
-  //     // Event handler for changing status
-  //     $statusSelect.on("change", async function () {
-  //       adjustSelectWidth();
-  //       const newStatus = $(this).val(); // Get the selected value
-  //       try {
-  //         await App.foodSupplyChain.updateInventoryStatus(
-  //           productId,
-  //           newStatus,
-  //           {
-  //             from: App.account,
-  //             gas: 500000, // Increase the gas limit if needed
-  //           }
-  //         );
-
-  //         // Update the chip's background color based on the new status
-  //         $(this).css("background-color", App.getStatusColor(newStatus));
-
-  //         M.toast({
-  //           html: "Status updated successfully!",
-  //           classes: "rounded",
-  //         });
-  //       } catch (error) {
-  //         console.error("Error updating status:", error);
-  //         M.toast({
-  //           html: `Error: ${error.message}`,
-  //           classes: "rounded",
-  //         });
-  //       }
-  //     });
-
-  //     $("#inventoryListItems").append($newInventoryTemplate);
-  //     $newInventoryTemplate.show();
-  //   }
-  // },
-
-  // renderCustomerSales: async () => {
-  //   // Fetch the total number of customers
-  //   const customerCount = (
-  //     await App.foodSupplyChain.customerCount({ from: App.account })
-  //   ).toNumber();
-  //   const $customerTemplate = $(".customerTemplate");
-  //   const $productTemplate = $(".custproductTemplate");
-
-  //   for (let i = 0; i < customerCount; i++) {
-  //     // Fetch customer details using the getCustomer function
-  //     const customer = await App.foodSupplyChain.getCustomer(i, {
-  //       from: App.account,
-  //     });
-  //     const customerAddress = customer[0];
-  //     const customerName = customer[1];
-
-  //     // Clone the customer template
-  //     const $newCustomerTemplate = $customerTemplate.clone();
-  //     $newCustomerTemplate.find(".customer-name").html(customerName);
-  //     $newCustomerTemplate.find(".customer-address").html(customerAddress);
-  //     $newCustomerTemplate
-  //       .find(".avatar-initial")
-  //       .text(customerName.charAt(0).toUpperCase())
-  //       .css({
-  //         display: "flex",
-  //         alignItems: "center",
-  //         justifyContent: "center",
-  //       });
-
-  //     // Fetch products for the current customer
-  //     const productIds = await App.foodSupplyChain.getProductsByParticipant(
-  //       customerAddress,
-  //       { from: App.account }
-  //     );
-
-  //     for (let j = 0; j < productIds.length; j++) {
-  //       const productId = productIds[j].toNumber();
-  //       const product = await App.foodSupplyChain.getProductDetails(productId, {
-  //         from: App.account,
-  //       });
-  //       const productName = product[1];
-
-  //       // Fetch the total sales quantity for this product and customer
-  //       const salesQuantity = (
-  //         await App.foodSupplyChain.getSalesByCustomer(
-  //           customerAddress,
-  //           productId,
-  //           { from: App.account }
-  //         )
-  //       ).toNumber();
-
-  //       // Get the status of the sold inventory
-  //       const [quantity, status] =
-  //         await App.foodSupplyChain.getInventoryDetails(
-  //           customerAddress,
-  //           productId,
-  //           { from: App.account }
-  //         );
-
-  //       // Only display the product if there is a sales quantity
-  //       if (salesQuantity > 0) {
-  //         // Clone the product template
-  //         const $newProductTemplate = $productTemplate.clone();
-  //         $newProductTemplate
-  //           .find(".avatar-initial-prod")
-  //           .text(productName.charAt(0).toUpperCase())
-  //           .css({
-  //             display: "flex",
-  //             alignItems: "center",
-  //             justifyContent: "center",
-  //           });
-  //         $newProductTemplate.find(".product-name").html(productName);
-  //         $newProductTemplate.find(".product-id").html(productId);
-  //         $newProductTemplate.find(".transferred-quantity").html(salesQuantity);
-
-  //         const $statusSelect = $("<select>")
-  //           .addClass("status-chip-select")
-  //           .css({
-  //             width: "auto",
-  //             borderRadius: "25px",
-  //             fontSize: "0.8em",
-  //             fontWeight: "bold",
-  //             color: "#ffffff",
-  //             backgroundColor: App.getStatusColor(status),
-  //             border: "none",
-  //             cursor: "pointer",
-  //             textAlign: "center",
-  //             appearance: "none",
-  //             zIndex: 1,
-  //           });
-
-  //         // List of available statuses
-  //         const statusOptions = [
-  //           "Produced",
-  //           "Transit",
-  //           "Delivered",
-  //           "Returned",
-  //         ];
-  //         statusOptions.forEach((statusOption) => {
-  //           const $option = $("<option>")
-  //             .attr("value", statusOption)
-  //             .text(statusOption);
-
-  //           if (statusOption === status) {
-  //             $option.attr("selected", "selected"); // Set the default selected option
-  //           }
-
-  //           $statusSelect.append($option);
-  //         });
-
-  //         // Attach the status select element to the template
-  //         $newProductTemplate
-  //           .find(".inventory-status-container")
-  //           .append($statusSelect);
-
-  //         // Handle status change event
-  //         $statusSelect.on("change", async function () {
-  //           const newStatus = $(this).val(); // Get the selected value
-  //           try {
-  //             await App.foodSupplyChain.updateCustomerInventoryStatus(
-  //               customerAddress,
-  //               productId,
-  //               newStatus,
-  //               {
-  //                 from: App.account,
-  //                 gas: 500000, // Increase the gas limit if needed
-  //               }
-  //             );
-  //             $(this).css("background-color", App.getStatusColor(newStatus));
-  //             M.toast({
-  //               html: "Status updated successfully!",
-  //               classes: "rounded",
-  //             });
-  //           } catch (error) {
-  //             console.error("Error updating status:", error);
-  //             M.toast({
-  //               html: `Error: ${error.message}`,
-  //               classes: "rounded",
-  //             });
-  //           }
-  //         });
-
-  //         // Append the product template to the customer's product list
-  //         $newCustomerTemplate.find(".productList").append($newProductTemplate);
-  //         $newProductTemplate.show();
-  //       }
-  //     }
-
-  //     // Append the populated customer template to the customer list if they have sales
-  //     if ($newCustomerTemplate.find(".productList").children().length > 0) {
-  //       $("#customerListItems").append($newCustomerTemplate);
-  //       $newCustomerTemplate.show();
-  //     }
-  //   }
-
-  //   // Toggle the visibility of the product list when the customerTemplate is clicked,
-  //   // but ignore clicks originating from interactive child elements
-  //   $(document).on("click", ".customerTemplate", function (event) {
-  //     const clickedElement = $(event.target);
-  //     if (
-  //       !clickedElement.closest(".inventory-status-select").length && // Not a dropdown
-  //       !clickedElement.closest(".update-status-btn").length && // Not a button
-  //       !clickedElement.closest(".productList").length // Not on the nested product list
-  //     ) {
-  //       $(this).find(".productList").slideToggle();
-  //     }
-  //   });
-
-  //   // Prevent propagation for interactive elements to avoid triggering the collapse
-  //   $(document).on(
-  //     "click",
-  //     ".inventory-status-select, .update-status-btn",
-  //     function (event) {
-  //       event.stopPropagation(); // Prevent event propagation to parent elements
-  //     }
-  //   );
-  // },
 
   renderCustomerSales: async () => {
     // Fetch the total number of customers
@@ -632,7 +331,7 @@ App = {
                 }
                 await App.productBatchToken.returnItems(productId, {
                   from: App.account,
-                  gas: 500000, // Increase the gas limit if needed
+                  gas: 500000, 
                 });
               }
               $(this).css("background-color", App.getStatusColor(newStatus));
@@ -670,9 +369,9 @@ App = {
     $(document).on("click", ".customerTemplate", function (event) {
       const clickedElement = $(event.target);
       if (
-        !clickedElement.closest(".inventory-status-select").length && // Not a dropdown
-        !clickedElement.closest(".update-status-btn").length && // Not a button
-        !clickedElement.closest(".productList").length // Not on the nested product list
+        !clickedElement.closest(".inventory-status-select").length && 
+        !clickedElement.closest(".update-status-btn").length && 
+        !clickedElement.closest(".productList").length 
       ) {
         $(this).find(".productList").slideToggle();
       }
@@ -728,7 +427,7 @@ App = {
     try {
       await App.foodSupplyChain.createProduct(productId, productName, {
         from: App.account,
-        gas: 500000, // Increase the gas limit if needed
+        gas: 500000,
       });
       M.toast({ html: "Product created successfully!", classes: "rounded" });
       window.location.reload();
@@ -773,7 +472,7 @@ App = {
     App.setLoading(true);
     const productId = $("#productIdInv").val();
     const quantity = $("#quantity").val();
-    const status = $("#inventoryStatus").val(); // Add status field value
+    const status = $("#inventoryStatus").val(); 
     await App.foodSupplyChain.addToInventory(productId, quantity, status, {
       from: App.account,
       gas: 500000,
@@ -801,7 +500,7 @@ App = {
         true,
         {
           from: App.account,
-          gas: 500000, // Adjust gas limit if needed
+          gas: 500000, 
         }
       );
       M.toast({ html: "Approval set successfully!", classes: "rounded" });
@@ -826,7 +525,7 @@ App = {
     const status = $("#status").val();
     await App.foodSupplyChain.updateInventoryStatus(productId, status, {
       from: App.account,
-      gas: 500000, // Increase the gas limit if needed
+      gas: 500000,
     });
     M.toast({
       html: "Inventory status updated successfully!",
@@ -860,7 +559,7 @@ flatpickr("#deadline", {
   dateFormat: "Y-m-d H:i",
   minDate: "today",
 });
-// Function to handle expand/collapse of cards
+
 // Function to handle expand/collapse of cards
 $(document).ready(function () {
   $(".card-header").click(function () {
