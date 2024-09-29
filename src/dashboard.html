@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Food Supplier Chain Management</title>
+
+    <!-- Materialize CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom styles -->
+    <link href="styles/styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo center">Food Supplier Chain Management</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li>
+            <a href="#"><span id="account"></span></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <!-- Register Participant Card -->
+        <div class="col s12 m8 offset-m2">
+          <div class="collapsible-card">
+            <div class="card-header">
+              <span class="card-title">Register Participant</span>
+              <span class="expand-arrow">&#9654;</span>
+            </div>
+            <div class="card-content" style="display: none">
+              <form onSubmit="App.registerParticipant()" id="participantForm">
+                <div class="input-field">
+                  <input
+                    id="participantName"
+                    type="text"
+                    class="validate"
+                    required
+                  />
+                  <label for="participantName">Participant Name</label>
+                </div>
+                <div class="input-field">
+                  <input id="role" type="text" class="validate" required />
+                  <label for="role">Role (producer, supplier, retailer)</label>
+                </div>
+                <div class="input-field">
+                  <input
+                    id="participantAddress"
+                    type="text"
+                    class="validate"
+                    required
+                  />
+                  <label for="participantAddress">Participant Address</label>
+                </div>
+                <div class="button-row">
+                  <button class="btn waves-effect waves-light" type="submit">
+                    Register Participant
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Create Product Card -->
+        <div class="col s12 m8 offset-m2">
+          <div class="collapsible-card">
+            <div class="card-header">
+              <span class="card-title">Create Product</span>
+              <span class="expand-arrow">&#9654;</span>
+            </div>
+            <div class="card-content" style="display: none">
+              <form onSubmit="App.createProduct()" id="productForm">
+                <div class="input-field">
+                  <input id="productId" type="text" class="validate" required />
+                  <label for="productId">Product ID</label>
+                </div>
+                <div class="input-field">
+                  <input
+                    id="newProduct"
+                    type="text"
+                    class="validate"
+                    required
+                  />
+                  <label for="newProduct">Product Name</label>
+                </div>
+                <div class="button-row">
+                  <button class="btn waves-effect waves-light" type="submit">
+                    Create Product
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add to Inventory Card -->
+        <div class="col s12 m8 offset-m2">
+          <div class="collapsible-card">
+            <div class="card-header">
+              <span class="card-title">Add to Inventory</span>
+              <span class="expand-arrow">&#9654;</span>
+            </div>
+            <div class="card-content" style="display: none">
+              <form onSubmit="App.addToInventory()" id="inventoryForm">
+                <div class="input-field">
+                  <input
+                    id="productIdInv"
+                    type="text"
+                    class="validate"
+                    required
+                  />
+                  <label for="productIdInv">Product ID</label>
+                </div>
+                <div class="input-field">
+                  <input
+                    id="quantity"
+                    type="number"
+                    class="validate"
+                    required
+                  />
+                  <label for="quantity">Quantity</label>
+                </div>
+                <div class="input-field">
+                  <input
+                    id="inventoryStatus"
+                    type="text"
+                    class="validate"
+                    required
+                  />
+                  <label for="inventoryStatus"
+                    >Status (e.g., Produced, Intransit, Delivered)</label
+                  >
+                </div>
+                <div class="button-row">
+                  <button class="btn waves-effect waves-light" type="submit">
+                    Add to Inventory
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Transfer Inventory Card -->
+        <div class="col s12 m8 offset-m2">
+          <div class="collapsible-card">
+            <div class="card-header">
+              <span class="card-title">Transfer Inventory</span>
+              <span class="expand-arrow">&#9654;</span>
+            </div>
+            <div class="card-content" style="display: none">
+              <form onSubmit="App.transferInventory()" id="transferForm">
+                <div class="input-field">
+                  <input
+                    id="transferProductId"
+                    type="text"
+                    class="validate"
+                    required
+                  />
+                  <label for="transferProductId">Product ID</label>
+                </div>
+                <div class="input-field">
+                  <input
+                    id="transferQuantity"
+                    type="number"
+                    class="validate"
+                    required
+                  />
+                  <label for="transferQuantity">Quantity</label>
+                </div>
+                <div class="input-field">
+                  <input id="toAddress" type="text" class="validate" required />
+                  <label for="toAddress">Recipient Address</label>
+                </div>
+                <div class="button-row">
+                  <button class="btn waves-effect waves-light" type="submit">
+                    Transfer Inventory
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product List -->
+        <div class="col s12 m8 offset-m2">
+          <h5 class="card-label">Product List</h5>
+          <div id="productList" class="card-panel">
+            <ul id="productListItems" class="collection">
+              <li
+                class="productTemplate collection-item avatar"
+                style="display: none"
+              >
+                <div class="circle avatar-initial">P</div>
+                <span
+                  class="title product-name"
+                  style="font-size: 1.2em; font-weight: bold"
+                  >p</span
+                >
+                <p>
+                  <span class="grey-text text-darken-1">Product ID: </span
+                  ><span class="product-id">0</span><br />
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- Inventory List -->
+        <div class="col s12 m8 offset-m2">
+          <h5 class="card-label">Inventory List</h5>
+          <div id="inventoryList" class="card-panel">
+            <ul id="inventoryListItems" class="collection">
+              <li
+                class="inventoryTemplate collection-item avatar"
+                style="display: none"
+              >
+                <div class="circle avatar-initial">C</div>
+                <span
+                  class="title product-name"
+                  style="font-size: 1.2em; font-weight: bold"
+                  >Product Name</span
+                >
+                <span class="prod-inventory-status-container"></span>
+                <p>
+                  <span class="grey-text text-darken-1">Quantity: </span>
+                  <span class="inventory-quantity">3</span><br />
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Customer and Products Section -->
+        <div class="col s12 m8 offset-m2">
+          <h5 class="card-label">Stock Tracker</h5>
+          <div id="customerProductsList" class="card-panel">
+            <ul id="customerListItems" class="collection">
+              <li
+                class="customerTemplate collection-item avatar"
+                style="display: none"
+              >
+                <div class="circle avatar-initial">C</div>
+                <span
+                  class="title customer-name"
+                  style="font-size: 1.2em; font-weight: bold"
+                  >Customer Name</span
+                >
+                <p>
+                  <span class="grey-text text-darken-1">Address: </span>
+                  <span class="customer-address">0x000000</span>
+                </p>
+                <!-- Nested Product List for each Customer -->
+                <ul class="productList collection" style="margin-left: 20px">
+                  <li
+                    class="custproductTemplate collection-item avatar"
+                    style="display: none"
+                  >
+                    <div class="circle avatar-initial-prod">P</div>
+                    <span
+                      class="title product-name"
+                      style="font-size: 1.1em; font-weight: bold"
+                      >Product Name</span
+                    >
+                    <span class="inventory-status-container"></span>
+                    <p>
+                      <span class="grey-text text-darken-1">Product ID: </span>
+                      <span class="product-id">123</span><br />
+                      <span class="grey-text text-darken-1"
+                        >Transferred Quantity:
+                      </span>
+                      <span class="transferred-quantity">0</span><br />
+                    </p>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- Loader -->
+        <div id="loader" class="center-align">
+          <div class="preloader-wrapper active">
+            <div class="spinner-layer spinner-blue-only">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div>
+              <div class="gap-patch">
+                <div class="circle"></div>
+              </div>
+              <div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Materialize JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Include jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Include Web3.js -->
+    <script src="vendor/web3/dist/web3.js"></script>
+    <!-- Include Truffle Contract -->
+    <script src="vendor/truffle-contract/dist/truffle-contract.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- Custom JS -->
+    <script src="app.js"></script>
+  </body>
+</html>

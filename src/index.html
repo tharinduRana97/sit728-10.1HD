@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login - Food Supplier Chain Management</title>
+    <!-- Materialize CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+          url("images/index.png") no-repeat center center fixed;
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+      }
+      .input-field .btn {
+        width: 150px;
+        margin: 0;
+        background-color: #1976d2;
+      }
+      .container {
+        margin-top: 50px;
+      }
+
+      .card {
+        padding: 20px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add some shadow for better visibility */
+      }
+
+      .card-content {
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col s12 m6 offset-m3">
+          <div class="card">
+            <div class="container">
+              <span class="card-title center">Admin Login</span>
+              <div class="row">
+                <form id="adminLoginForm">
+                  <div class="input-field col s12">
+                    <input
+                      id="adminAddress"
+                      type="text"
+                      class="validate"
+                      required
+                    />
+                    <label for="adminAddress">Admin Ethereum Address</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <input
+                      id="adminPassword"
+                      type="password"
+                      class="validate"
+                      required
+                    />
+                    <label for="adminPassword">Password</label>
+                  </div>
+                  <div class="input-field col s12 center">
+                    <button class="btn waves-effect waves-light" type="submit">
+                      Login
+                    </button>
+                  </div>
+                  <div class="input-field col s12 center">
+                    <a href="register.html">Register as Admin</a>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery and Materialize JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- Include Web3.js -->
+    <script src="vendor/web3/dist/web3.js"></script>
+    <!-- Include Truffle Contract -->
+    <script src="vendor/truffle-contract/dist/truffle-contract.js"></script>
+    <script src="app.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#adminLoginForm").submit(async function (event) {
+          event.preventDefault();
+          const adminAddress = $("#adminAddress").val();
+          const adminPassword = $("#adminPassword").val();
+
+          // Implement a simple authentication mechanism here (this should be done on the server for a real app)
+          if (await App.authenticateAdmin(adminAddress, adminPassword)) {
+            window.location.href = "dashboard.html";
+          } else {
+            M.toast({
+              html: "Authentication failed. Please check your credentials.",
+              classes: "rounded",
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
